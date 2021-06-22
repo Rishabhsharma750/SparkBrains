@@ -5,6 +5,17 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 @api_view(['GET'])
+def url_list(request):
+    api_url={
+        'List':'list/',
+        'Detail':'details/<int:num>/',
+        'Create':'create/',
+        'Update':'update/<int:num>/',
+        'Delete':'delete/<int:num>/',
+    }
+    return Response(api_url)
+
+@api_view(['GET'])
 def student_list(request):
     stu=Student.objects.all()
     serializer=StudentSerializer(stu,many=True)
