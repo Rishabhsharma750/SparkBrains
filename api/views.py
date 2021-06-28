@@ -6,6 +6,10 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating and updating profiles"""
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
 
 class UserViewSet(viewsets.ViewSet):
     def list(self, request):
@@ -31,7 +35,6 @@ class UserViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = StudentSerializer(user)
         return Response(serializer.data)
-
 
     def destroy(self,request,pk):
         stu=Student.objects.get(pk=id)
