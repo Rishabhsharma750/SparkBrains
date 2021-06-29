@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from .models import *
+from api import permissions
 from .serializer import *
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-from api import permissions
+from rest_framework.settings import api_settings
+from rest_framework.authtoken.views import ObtainAuthToken
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -17,7 +19,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
     search_fields=('name','email',)
-
 
 class UserViewSet(viewsets.ViewSet):
     def list(self, request):
@@ -49,6 +50,9 @@ class UserViewSet(viewsets.ViewSet):
         stu.delete()
         return Response({'msg':'Data deleted'})
 
+class UserLoginView(ObtainAuthToken):
+    """Handle creating user authentication tokens"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
 
 

@@ -8,6 +8,8 @@ router.register(r'users', UserViewSet, basename='user')
 router.register(r'profile', UserProfileViewSet, basename='profile')
 urlpatterns = router.urls
 
+
+
 # urlpatterns = [
 #     path('',views.url_list),
 #     path('list/',views.student_list),
