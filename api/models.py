@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
 
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
@@ -49,6 +50,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
         return self.email
 
 class Student(models.Model):
+    user_profile=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=None)
     name=models.CharField(max_length=100)
     roll=models.IntegerField()
     city=models.CharField(max_length=100)

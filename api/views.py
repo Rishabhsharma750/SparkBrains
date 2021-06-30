@@ -13,20 +13,20 @@ from rest_framework.decorators import api_view
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """Handle creating and updating profiles"""
-    serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
-    search_fields=('name','email',)
+    search_fields=('name','email','id',)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = (permissions.UpdateOwnProfile,)
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name', 'city',)
+    search_fields = ('name', 'city','id',)
 
 # class UserViewSet(viewsets.ViewSet):
 #     def list(self, request):
